@@ -1,0 +1,14 @@
+{% extends "sitewide/base.html" %}
+
+{% block title %}Index{% endblock %}
+
+{% block content %}
+
+{% if user %}
+    <h1> Hello {{ user.username }} </h1>
+{% endif %}
+
+<div><a href="{% url blocked_tweets_view %}">Blocked Tweets</a></div>
+<div><a href="{% url published_tweets_view %}">Published Tweets</a></div>
+
+{% endblock %}

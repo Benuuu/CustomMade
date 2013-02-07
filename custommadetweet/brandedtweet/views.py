@@ -28,29 +28,14 @@ def index(request):
 @login_required(login_url='/login/')
 @user_passes_test(is_editor)
 def editor_view(request):
-    tweet_list = BrandedTweet.objects.all().order_by('-submit_date')
-    paginator = Paginator(tweet_list, 10)
-    
-    page = request.GET.get('page')
-    try:
-        tweets = paginator.page(page)
-    except PageNotAnInteger:
-        tweets = paginator.page(1)
-    except EmptyPage:
-        tweets = paginator.page(paginator.num_pages)
-    
-    c = {'tweet_list': tweets}
-    if request.user.is_authenticated():
-        c['user'] = request.user
-        
-    return render_to_response('brandedtweet/list.html', c)
+    return render_to_response('brandedtweet/editor.html')
 
 @login_required(login_url='/login/')
 @user_passes_test(is_editor)
 def blocked_tweets_view(request):
     tweets = paginated_tweets(request, is_dirty=True)
 
-    c = {'tweet_list': tweets, 'is_dirty': True}
+    c = {'tweet_list': tweets, 'is_dirty': True, 'type_tweets': 'Blocked'}
     if request.user.is_authenticated():
         c['user'] = request.user
         
@@ -62,7 +47,7 @@ def blocked_tweets_view(request):
 def published_tweets_view(request):
     tweets = paginated_tweets(request, is_dirty=False)
 
-    c = {'tweet_list': tweets, 'is_dirty': False}
+    c = {'tweet_list': tweets, 'is_dirty': False, 'type_tweets': 'Published'}
     if request.user.is_authenticated():
         c['user'] = request.user
 

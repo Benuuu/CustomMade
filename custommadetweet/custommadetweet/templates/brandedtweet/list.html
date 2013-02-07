@@ -2,19 +2,23 @@
 
 {% block title %}Index{% endblock %}
 
+{% block nav %}
+<a href="{% url editor_view %}">Back</a>
+{% endblock %}
+
 {% block content %}
 
-{% if user %}
-    <h1> Hello {{ user.username }} </h1>
-
-{% endif %}
-
 {% if tweet_list %}
+    {% if type_tweets %}
+        <h3>{{ type_tweets }} Tweets</h3>
+    {% endif %}
+    
     <ul>
     {% for tweet in tweet_list %}
         <li>{{ tweet.content }}</li>
     {% endfor %}
     </ul>
+
 {% else %}
     <p>No tweets are available.</p>
 {% endif %}
