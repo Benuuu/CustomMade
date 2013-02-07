@@ -8,6 +8,7 @@ class BrandedTweet(models.Model):
         submit_date = models.DateTimeField()
         user = models.ForeignKey(User)
         twitter_id = models.IntegerField(null=True,blank=True)
+        is_dirty = models.BooleanField(default=False)
 
         def __unicode__(self):
             return self.content

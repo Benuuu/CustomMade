@@ -11,7 +11,7 @@ def index(request):
     
     return redirect('/login/')
 
-def loginview(request):
+def login_view(request):
     c = {}
     c.update(csrf(request))
     return render_to_response('login.html', c)
