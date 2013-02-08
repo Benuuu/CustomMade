@@ -13,11 +13,29 @@
         <h3>{{ type_tweets }} Tweets</h3>
     {% endif %}
     
-    <ul>
+    <table border="1">
+        <tr>
+            <td>Tweet</td>
+            <td>Submit Date</td>
+            <td>User Id</td>
+            <td>Username</td>
+        </tr>
     {% for tweet in tweet_list %}
-        <li>{{ tweet.content }}</li>
+        <tr>
+            <td>{% if tweet.twitter_id %}
+                    <a href="https://twitter.com/cmtwitbot/status/{{ tweet.twitter_id }}">
+                {% endif %}
+                {{ tweet.content }}
+                {% if tweet.twitter_id %}
+                    </a>
+                {% endif %}
+            </td>
+            <td>{{ tweet.submit_date }}</td>
+            <td>{{ tweet.user_id }}</td>
+            <td>{{ tweet.user.username }}</td>
+        </tr>
     {% endfor %}
-    </ul>
+    </table>
 {% else %}
     <p>No tweets are available.</p>
 {% endif %}
