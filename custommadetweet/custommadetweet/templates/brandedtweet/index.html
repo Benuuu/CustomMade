@@ -1,38 +1,10 @@
 {% extends "sitewide/base.html" %}
 
-{% block title %}Index{% endblock %}
+{% block title %}Tweets!{% endblock %}
 
 {% block content %}
 
-{% if user %}
-    <h1> Hello {{ user.username }} </h1>
-
-{% endif %}
-
-{% if tweet_list %}
-    <ul>
-    {% for tweet in tweet_list %}
-        <li>{{ tweet.content }}</li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No tweets are available.</p>
-{% endif %}
-
-<div class="pagination">
-    <span class="step-links">
-        {% if tweet_list.has_previous %}
-            <a href="?page={{ tweet_list.previous_page_number }}">previous</a>
-        {% endif %}
-        
-        <span class="current">
-            Page {{ tweet_list.number }} of {{ tweet_list.paginator.num_pages }}.
-        </span>
-        
-        {% if tweet_list.has_next %}
-            <a href="?page={{ tweet_list.next_page_number }}">next</a>
-        {% endif %}
-    </span>
-</div>
+<div><a href="{% url editor_view %}">Editor</a></div>
+<div><a href="{% url staff_view %}">Staff</a></div>
 
 {% endblock %}

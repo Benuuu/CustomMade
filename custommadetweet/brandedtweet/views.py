@@ -11,24 +11,19 @@ from brandedtweet.utils.auth_helper import *
 from brandedtweet.utils.custommadefilter import *
 from brandedtweet.utils.custommadetweeter import *
 
+import sys
+
 @login_required(login_url='/login/')
 def index(request):
-    tweet_list = BrandedTweet.objects.all().order_by('-submit_date')
-    paginator = Paginator(tweet_list, 10)
-    
-    page = request.GET.get('page')
-    try:
-        tweets = paginator.page(page)
-    except PageNotAnInteger:
-        tweets = paginator.page(1)
-    except EmptyPage:
-        tweets = paginator.page(paginator.num_pages)
-    
-    c = {'tweet_list': tweets}
-    if request.user.is_authenticated():
-        c['user'] = request.user
+    editor = is_editor(request.user)
+    staff = is_staff(request.user)
         
-    return render_to_response('brandedtweet/index.html', c)
+    if editor and not staff:
+        return redirect('/tweets/editor/')
+    if staff and not editor:
+        return redirect('/tweets/staff/')
+    
+    return render_to_response('brandedtweet/index.html')
 
 
 @login_required(login_url='/login/')
