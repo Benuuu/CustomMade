@@ -1,0 +1,14 @@
+{% extends "sitewide/base.html" %}
+
+{% block title %}Create Tweet{% endblock %}
+
+{% block content %}
+
+<h3> Create a Branded Tweet </h3>
+
+<form action="/tweets/staff/" method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+
+{% endblock %}

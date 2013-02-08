@@ -7,7 +7,7 @@ class BrandedTweetAdmin(admin.ModelAdmin):
         ('Date Information',    {'fields': ['publish_date','submit_date']}),
     ]
     
-    list_display = ('content','user','is_dirty','publish_date','submit_date')
+    list_display = ('content','user','is_dirty','twitter_id','publish_date','submit_date')
     search_fields = ['content','user']
 
 
