@@ -116,21 +116,3 @@ def staff_view(request):
     
     c['form'] = form
     return render_to_response('brandedtweet/create_tweet.html', c)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
