@@ -4,6 +4,12 @@
 
 {% block content %}
 
+<script language="JavaScript">
+function textCounter(field, countfield, maxlimit) {
+        countfield.value = maxlimit - field.value.length;
+    }
+</script>
+
 <h3> Create a Branded Tweet </h3>
 
 {% if original_content %}
@@ -11,13 +17,14 @@
 <br>
 <div><b>Original</b></div>
 
-<p>Content: {{ original_content }}</p>
+<p>Content: {{ original_content}} </p>
 
 <div><b>Brand Corrected</b></div>
 {% endif %}
 
 <form action="/tweets/staff/" method="post">{% csrf_token %}
 {{ form.as_p }}
+<p><input readonly="" type="text" name="counter" size="3" maxlength="3" value="140"> characters remaining</p>
 <input type="submit" value="Submit" />
 </form>
 
