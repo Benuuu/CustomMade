@@ -1,5 +1,6 @@
 # Django settings for custommadetweet project.
 import os
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -108,6 +109,9 @@ TEMPLATE_DIRS = (
     os.path.join(SITE_ROOT,'templates/')
 )
 
+TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.request',)
+
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -117,6 +121,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',    
+    
+    'django_tables2',
+    
     'brandedtweet',
 )
 
