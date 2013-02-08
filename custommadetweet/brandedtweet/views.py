@@ -109,6 +109,7 @@ def staff_view(request):
 
             # Content that needs brand correcting should be sent back to the staff for validation
             form = BrandedTweetForm({'content':new_content})
+            c['original_content'] = content
     
     else:
         form = BrandedTweetForm()

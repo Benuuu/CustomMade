@@ -6,6 +6,16 @@
 
 <h3> Create a Branded Tweet </h3>
 
+{% if original_content %}
+<div>Please verify that the brand-corrected Tweet is acceptable.</div>
+<br>
+<div><b>Original</b></div>
+
+<p>Content: {{ original_content }}</p>
+
+<div><b>Brand Corrected</b></div>
+{% endif %}
+
 <form action="/tweets/staff/" method="post">{% csrf_token %}
 {{ form.as_p }}
 <input type="submit" value="Submit" />
