@@ -96,7 +96,7 @@ def staff_view(request):
                 bt = BrandedTweet(content=content, submit_date=timezone.now(),
                                   user=request.user, is_dirty=True)
                 bt.save()
-                return HttpResponse('Shame on you')
+                return HttpResponse('Shame on you!')
             
             # Content that doesn't need brand correcting can be tweeted
             new_content = cmf.brand_correct_text(content)
