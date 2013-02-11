@@ -107,6 +107,11 @@ def staff_view(request):
             # Content that doesn't need brand correcting can be tweeted
             new_content = cmf.brand_correct_text(content)
             if new_content == content:
+                #shorten urls
+                url_shortened_content = cmf.shorten_urls(new_content)
+                if len(url_shortened_content)<len(new_content) and len(url_shortened_content) != 0:
+                    new_content = url_shortened_content
+                
                 tweet_id = send_tweet(new_content)
                 bt = BrandedTweet(content=new_content, submit_date=timezone.now(),
                                   user=request.user, publish_date=timezone.now(),

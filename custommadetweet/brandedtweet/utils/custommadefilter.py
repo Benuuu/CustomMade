@@ -1,7 +1,8 @@
 import re
 import string
+import bitly_api
 
-class CustomMadeFilter():
+class CustomMadeFilter():    
     def __init__(self,
                 dirty_words=["Big Box", "Generic", "Commodity",
                              "Mass Market"],
@@ -18,7 +19,9 @@ class CustomMadeFilter():
                 self.dirty_word_regexes = self.generate_dirty_regex(dirty_words)
                 self.brand_correct = brand_correct
                 self.brand_correct_regexes = self.generate_brand_correct_regex(brand_correct)
-    
+                self.url_matcher = re.compile(r'\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^%s\s]|/)))')
+                self.bitly_conn = bitly_api.Connection(access_token='213b35f5a8d3ab35958df62d5584aed7829d124f')
+                
     """
     Match regardless of case (not just upper vs. lower, but also off cases
     like CamelCase, hyphenated-cased, and underscored_case).
@@ -59,3 +62,12 @@ class CustomMadeFilter():
             text = re.sub(k, v, text)
         return text
 
+    def __bitly_url(self, urlmatch):
+        url = urlmatch.group(0)
+        if not url.startswith('http'):
+            url = 'http://%s' % url
+        return self.bitly_conn.shorten(url)['url']
+    
+    def shorten_urls(self, text):
+        return re.sub(self.url_matcher, self.__bitly_url, text)
+        
