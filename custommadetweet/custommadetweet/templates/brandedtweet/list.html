@@ -19,6 +19,9 @@
             <td>Submit Date</td>
             <td>User Id</td>
             <td>Username</td>
+            {% if type_tweets == 'Published' %}
+            <td>Retweet Count</td>
+            {% endif %}
         </tr>
     {% for tweet in tweet_list %}
         <tr>
@@ -33,6 +36,9 @@
             <td>{{ tweet.submit_date }}</td>
             <td>{{ tweet.user_id }}</td>
             <td>{{ tweet.user.username }}</td>
+            {% if type_tweets == 'Published' %}
+            <td>{{ tweet.retweet_count }}</td>
+            {% endif %}
         </tr>
     {% endfor %}
     </table>

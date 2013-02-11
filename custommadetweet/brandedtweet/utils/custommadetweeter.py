@@ -9,4 +9,7 @@ def send_tweet(content):
     return api.PostUpdate(content).id
     
 def get_tweets():
-    api.GetUserTimeline()
+    return api.GetUserTimeline()
+
+def get_retweet_count(twit):
+    return api.GetStatus(twit).GetRetweetCount()

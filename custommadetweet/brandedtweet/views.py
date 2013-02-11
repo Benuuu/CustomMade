@@ -54,6 +54,12 @@ def published_tweets_view(request):
 
     tweets = paginated_tweets(request, is_dirty=False)
 
+    for tweet in tweets:
+        rtc = get_retweet_count(tweet.twitter_id)
+        tweet.retweet_count = rtc
+        print >>sys.stderr, tweet.retweet_count
+        print >>sys.stderr, rtc
+
     c = {'tweet_list': tweets, 'is_dirty': False, 'type_tweets': 'Published'}
     if request.user.is_authenticated():
         c['user'] = request.user
